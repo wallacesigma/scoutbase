@@ -1,3 +1,10 @@
+:root {
+    --primary-green: #1A7F66;
+    --primary-yellow: #F7C631;
+    
+}
+
+
 body { 
     font-family: system-ui, sans-serif; 
     margin: 2rem; 
@@ -13,7 +20,7 @@ body {
 
 .header-container {
     border-radius: 25px;
-    border: 2px solid #1A7F66;
+    border: 2px solid var(--primary-green);
     padding: 10px; 
     display: flex;          /* Places elements side-by-side */
     align-items: center;    /* Vertically aligns text with the center of the image */
@@ -32,21 +39,21 @@ body {
 
 .filter-controls {
     border-radius: 25px;
-    border: 2px solid #1A7F66;
-    padding: 5px; 
-    display: flex;          /* Places elements side-by-side */
-    align-items: center;    /* Vertically aligns text with the center of the image */
-    gap: 15px;              /* Spacing between crest and text */
+    border: 2px solid var(--primary-green);
+    padding: 5px;
+    display: flex; /* Places elements side-by-side */
+    align-items: center; /* Vertically aligns text with the center of the image */
+    gap: 15px; /* Spacing between crest and text */
 }
 
-.filter-group { 
+.filter-group {
     margin: 5px;
     border-radius: 25px;
-    background-color: #1A7F66;
-    padding: 15px; 
-    display: flex; 
-    align-items: center; 
-    gap: 8px; 
+    background-color: var(--primary-green);
+    padding: 15px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
 }
 
 .filter-label {
@@ -57,11 +64,11 @@ body {
 
 .total-box .total-label {
     margin: 5px;
-    padding: 8px 16px;       /* Adds inner space to reveal border-radius */
+    padding: 8px 16px; /* Adds inner space to reveal border-radius */
     border-radius: 25px;
-    background-color: #F7C631;
-    color: white;             /* Improves contrast against dark green background */
-    display: inline-block;    /* Prevents the box from stretching 100% width */
+    background-color: var(--primary-yellow);
+    color: white; /* Improves contrast against dark green background */
+    display: inline-block; /* Prevents the box from stretching 100% width */
 }
 
 select { 
@@ -97,8 +104,12 @@ th {
     background-color: #f9f9f9;
 }
 
-#login-container h3 { 
-    margin-top: 0; 
+data-table {
+    margin: 10px;
+}
+
+#login-container h3 {
+    margin-top: 0;
 }
 
 .login-field { 
