@@ -20,7 +20,7 @@ body {
     gap: 15px;              /* Spacing between crest and text */
 }
 
-    .header-container .header-image {
+    .header-image {
         height: 50px;
         width: 50%;
     }
