@@ -49,10 +49,6 @@ body {
 	margin: 5px;
 	border-radius: 25px;
 	background-color: #1A7F66;
-	padding: 15px; 
-    display: flex; 
-    align-items: center; 
-    gap: 8px; 
 }
 
 .filter-label {
