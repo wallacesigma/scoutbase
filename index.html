@@ -2,18 +2,18 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ScoutDB</title>
+    <title>ScoutBase - Online</title>
     <link rel="stylesheet" href="styles.css?v=2">
     <!-- Load Supabase JS Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Load Your App Logic Second -->
-    <script src="script.js?v=1"></script>
+    <script src="script.js?v=2" defer></script>
 </head>
 <body>
 
     <!-- LOGIN CONTAINER -->
     <div id="login-container">
-        <h3>ScoutDB Leader Login</h3>
+        <h3>ScoutBase Leader Login</h3>
         <div class="login-field">
             <label for="email">Email</label>
             <input type="email" id="email" placeholder="leader@scouts.ie">
@@ -30,13 +30,17 @@
     <div id="app-content">
         <div class="header-scoutbase"></div>
         
-        <div class="header-container"> 
+        <div class="header-container">
             <img class="header-image" src="SBEmblem.png" alt="ScoutBase">
-            <h2>ScoutBase</h2> 
-            
+            <div class="scout-logo">
+                <p class="scout">Scout</p>
+                <p class="base">Base</p>
+            </div>
+
+
             <img class="header-image" src="75thCrest.png" alt="75th Carrigrohane">
             <h2>75th Carrigrohane</h2>
-            
+
             <button class="logout-btn" onclick="handleLogout()">Logout</button>
         </div>
         

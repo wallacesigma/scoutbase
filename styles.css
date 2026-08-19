@@ -18,6 +18,29 @@ body {
     flex-wrap: wrap; 
 }
 
+.scout-logo {
+    
+    display: flex;
+    gap: 0; /* Ensures zero space between child elements */
+}
+
+.scout-logo p {
+        
+        margin: 0; /* Removes default browser margins for <p> tags */
+        font-weight: bold;
+        font-size: 24px;
+    }
+
+.scout {
+    font-size: 100px;
+    color: var(--primary-green); /* Green */
+}
+
+.base {
+    font-size: 200px;
+    color: var(--primary-yellow); /* Yellow */
+}
+
 .header-container {
     border-radius: 25px;
     border: 2px solid var(--primary-green);
@@ -37,13 +60,17 @@ body {
     margin: 0;
 }
 
+.header-title {
+    height: 100px;
+    width: auto;
+}
+
 .filter-controls {
-    border-radius: 25px;
-    border: 2px solid var(--primary-green);
+
     padding: 5px;
     display: flex; /* Places elements side-by-side */
     align-items: center; /* Vertically aligns text with the center of the image */
-    gap: 15px; /* Spacing between crest and text */
+    gap: 5px; /* Spacing between crest and text */
 }
 
 .filter-group {
@@ -94,7 +121,9 @@ th {
     background-color: #f4f4f4; 
 }
 
-/* --- ScoutDB Login & Layout Styles --- */
+
+
+/* --- ScoutBase Login & Layout Styles --- */
 #login-container {
     max-width: 350px;
     margin: 80px auto;
@@ -104,7 +133,7 @@ th {
     background-color: #f9f9f9;
 }
 
-data-table {
+#data-table {
     margin: 10px;
 }
 
