@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>ScoutDB</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css?v=2">
     <!-- Load Supabase JS Client Library -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Load Your App Logic Second -->
+    <script src="script.js?v=1"></script>
 </head>
 <body>
 
@@ -68,156 +70,5 @@
         </table>
     </div>
 
-    <script>
-        const SUPABASE_URL = 'https://twsbsaedyxueymtpaxoq.supabase.co';
-        const SUPABASE_ANON_KEY = 'sb_publishable_p6SyPr9Py7YgDsksFof9Mg_OhFeETqn'; // Replace with working key
-        
-        const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-3
-        // Check auth status on page load
-        window.addEventListener('DOMContentLoaded', async () => {
-            const { data: { session } } = await supabaseClient.auth.getSession();
-            if (session) {
-                showApp();
-            }
-        });
-
-        async function handleLogin() {
-            const email = document.getElementById('email').value;
-            const password = document.getElementById('password').value;
-            const errDiv = document.getElementById('auth-error');
-            errDiv.textContent = '';
-
-            const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-
-            if (error) {
-                errDiv.textContent = error.message;
-            } else {
-                showApp();
-            }
-        }
-
-        async function handleLogout() {
-            await supabaseClient.auth.signOut();
-            document.getElementById('app-content').style.display = 'none';
-            document.getElementById('login-container').style.display = 'block';
-        }
-
-        async function showApp() {
-            document.getElementById('login-container').style.display = 'none';
-            document.getElementById('app-content').style.display = 'block';
-            await populateDropdowns();
-            await applyFilters();
-        }
-
-        async function populateDropdowns() {
-            const { data: units } = await supabaseClient
-                .from('units')
-                .select('unit_name')
-                .order('unit_name', { ascending: true });
-
-            if (units) {
-                const unitSelect = document.getElementById('unit-filter');
-                unitSelect.innerHTML = '<option value="All">All Units</option>';
-                units.forEach(u => {
-                    const option = document.createElement('option');
-                    option.value = u.unit_name;
-                    option.textContent = u.unit_name;
-                    unitSelect.appendChild(option);
-                });
-            }
-
-            const { data: statuses } = await supabaseClient
-                .from('statuses')
-                .select('status_name')
-                .order('status_name', { ascending: true });
-
-            if (statuses) {
-                const statusSelect = document.getElementById('status-filter');
-                statusSelect.innerHTML = '<option value="All">All Statuses</option>';
-                statuses.forEach(s => {
-                    const option = document.createElement('option');
-                    option.value = s.status_name;
-                    option.textContent = s.status_name;
-                    statusSelect.appendChild(option);
-                });
-            }
-        }
-
-        async function applyFilters() {
-            const selectedUnit = document.getElementById('unit-filter').value;
-            const selectedStatus = document.getElementById('status-filter').value;
-
-            let query = supabaseClient.from('v_scouts').select('*');
-
-            if (selectedUnit && selectedUnit !== 'All') {
-                query = query.eq('Unit', selectedUnit);
-            }
-
-            if (selectedStatus && selectedStatus !== 'All') {
-                query = query.eq('Status', selectedStatus);
-            }
-
-            query = query.order('Name', { ascending: true });
-
-            const { data, error } = await query;
-
-            if (error) {
-                console.error("Error querying v_scouts:", error);
-                clearTable();
-                return;
-            }
-
-            if (data && data.length > 0) {
-                renderTable(data);
-            } else {
-                clearTable();
-            }
-        }
-
-        function renderTable(rows) {
-            const head = document.getElementById('table-head');
-            const body = document.getElementById('table-body');
-            head.innerHTML = '';
-            body.innerHTML = '';
-
-            const columns = Object.keys(rows[0]);
-
-            columns.forEach(col => {
-                const th = document.createElement('th');
-                th.textContent = col;
-                head.appendChild(th);
-            });
-
-            rows.forEach(row => {
-                const tr = document.createElement('tr');
-                columns.forEach(colName => {
-                    const td = document.createElement('td');
-                    const val = row[colName];
-                    const isEmpty = val === null || val === undefined || String(val).trim() === '';
-
-                    td.textContent = isEmpty ? '' : val;
-
-                    if (isEmpty && (colName === 'Contact Number' || colName === 'Parent Name')) {
-                        td.style.backgroundColor = 'Tomato';
-                    }
-
-                    tr.appendChild(td);
-                });
-                body.appendChild(tr);
-            });
-
-            document.getElementById('total-label').innerHTML = "Total Records: " + rows.length;
-        }
-
-        function clearTable() {
-            document.getElementById('table-head').innerHTML = '';
-            document.getElementById('table-body').innerHTML = '<tr><td colspan="100%">No matching records found.</td></tr>';
-            document.getElementById('total-label').innerHTML = "Total Records: 0";
-        }
-
-        document.getElementById('unit-filter').addEventListener('change', applyFilters);
-        document.getElementById('status-filter').addEventListener('change', applyFilters);
-    </script>
 </body>
 </html>
