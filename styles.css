@@ -12,12 +12,12 @@ body {
 }
 
 .header-container {
-		border-radius: 25px;
-		border: 2px solid #1A7F66;
-		padding: 10px; 
-		display: flex;          /* Places elements side-by-side */
-		align-items: center;    /* Vertically aligns text with the center of the image */
-		gap: 15px;              /* Spacing between crest and text */
+    border-radius: 25px;
+    border: 2px solid #1A7F66;
+    padding: 10px; 
+    display: flex;          /* Places elements side-by-side */
+    align-items: center;    /* Vertically aligns text with the center of the image */
+    gap: 15px;              /* Spacing between crest and text */
 }
 
 /* Removes default top/bottom heading margins that disrupt alignment */
@@ -26,35 +26,37 @@ body {
 }
 
 .filter-controls {
-		border-radius: 25px;
-		border: 2px solid #1A7F66;
-		padding: 5px; 
-		display: flex;          /* Places elements side-by-side */
-		align-items: center;    /* Vertically aligns text with the center of the image */
-		gap: 15px;              /* Spacing between crest and text */
+    border-radius: 25px;
+    border: 2px solid #1A7F66;
+    padding: 5px; 
+    display: flex;          /* Places elements side-by-side */
+    align-items: center;    /* Vertically aligns text with the center of the image */
+    gap: 15px;              /* Spacing between crest and text */
 }
 
 .filter-group { 
-	margin: 5px;
-	border-radius: 25px;
-	background-color: #1A7F66;
-	padding: 15px; 
+    margin: 5px;
+    border-radius: 25px;
+    background-color: #1A7F66;
+    padding: 15px; 
     display: flex; 
     align-items: center; 
     gap: 8px; 
-
-}
-
-.total-box {
-	margin: 5px;
-	border-radius: 25px;
-	background-color: #1A7F66;
 }
 
 .filter-label {
-	border-radius: 5px;
-	padding: 5px;
-	background-color: White;
+    border-radius: 5px;
+    padding: 5px;
+    background-color: White;
+}
+
+.total-box .total-label {
+    margin: 5px;
+    padding: 8px 16px;       /* Adds inner space to reveal border-radius */
+    border-radius: 25px;
+    background-color: #1A7F66;
+    color: white;             /* Improves contrast against dark green background */
+    display: inline-block;    /* Prevents the box from stretching 100% width */
 }
 
 select { 
@@ -78,4 +80,68 @@ th, td {
 
 th { 
     background-color: #f4f4f4; 
+}
+
+/* --- ScoutDB Login & Layout Styles --- */
+#login-container {
+    max-width: 350px;
+    margin: 80px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+}
+
+#login-container h3 { 
+    margin-top: 0; 
+}
+
+.login-field { 
+    margin-bottom: 12px; 
+}
+
+.login-field label { 
+    display: block; 
+    margin-bottom: 4px; 
+    font-weight: bold; 
+}
+
+.login-field input { 
+    width: 100%; 
+    padding: 8px; 
+    box-sizing: border-box; 
+}
+
+.login-btn { 
+    width: 100%; 
+    padding: 10px; 
+    background-color: #007bff; 
+    color: white; 
+    border: none; 
+    border-radius: 4px; 
+    cursor: pointer; 
+}
+
+.login-btn:hover { 
+    background-color: #0056b3; 
+}
+
+#auth-error { 
+    color: red; 
+    margin-top: 10px; 
+    font-weight: bold; 
+}
+
+#app-content { 
+    display: none; 
+}
+
+.logout-btn { 
+    background-color: #dc3545; 
+    color: white; 
+    border: none; 
+    padding: 6px 12px; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    float: right; 
 }
