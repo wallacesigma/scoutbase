@@ -1,0 +1,75 @@
+body { 
+    font-family: system-ui, sans-serif; 
+    margin: 2rem; 
+}
+
+.controls { 
+    margin-bottom: 1.5rem; 
+    display: flex; 
+    align-items: center; 
+    gap: 20px; 
+    flex-wrap: wrap; 
+}
+
+.header-container {
+		border-radius: 25px;
+		border: 2px solid #1A7F66;
+		padding: 10px; 
+		display: flex;          /* Places elements side-by-side */
+		align-items: center;    /* Vertically aligns text with the center of the image */
+		gap: 15px;              /* Spacing between crest and text */
+}
+
+/* Removes default top/bottom heading margins that disrupt alignment */
+.header-container h2 {
+    margin: 0;
+}
+
+.filter-controls {
+		border-radius: 25px;
+		border: 2px solid #1A7F66;
+		padding: 5px; 
+		display: flex;          /* Places elements side-by-side */
+		align-items: center;    /* Vertically aligns text with the center of the image */
+		gap: 15px;              /* Spacing between crest and text */
+}
+
+.filter-group { 
+	margin: 5px;
+	border-radius: 25px;
+	background-color: #1A7F66;
+	padding: 15px; 
+    display: flex; 
+    align-items: center; 
+    gap: 8px; 
+
+}
+
+.filter-label {
+	border-radius: 5px;
+	padding: 5px;
+	background-color: White;
+}
+
+select { 
+    padding: 6px 12px; 
+    font-size: 1rem; 
+    border-radius: 4px; 
+    border: 1px solid #ccc; 
+}
+
+table { 
+    border-collapse: collapse; 
+    width: 100%; 
+    max-width: 900px; 
+}
+
+th, td { 
+    border: 1px solid #ccc; 
+    padding: 8px 12px; 
+    text-align: left; 
+}
+
+th { 
+    background-color: #f4f4f4; 
+}
