@@ -20,9 +20,9 @@ body {
     gap: 15px;              /* Spacing between crest and text */
 }
 
-    .header-image {
+    .header-container .header-image {
         height: 50px;
-        width: 50%;
+        width: 50px;
     }
 
 /* Removes default top/bottom heading margins that disrupt alignment */
