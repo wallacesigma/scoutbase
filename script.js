@@ -1,4 +1,4 @@
-const SUPABASE_URL = 'https://twsbsaedyxueymtpaxoq.supabase.co';
+﻿const SUPABASE_URL = 'https://twsbsaedyxueymtpaxoq.supabase.co';
 const SUPABASE_ANON_KEY = 'sb_publishable_p6SyPr9Py7YgDsksFof9Mg_OhFeETqn'; // Replace with working key
 
 const supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
@@ -110,6 +110,11 @@ function renderTable(rows) {
     head.innerHTML = '';
     body.innerHTML = '';
 
+    // Action Header
+    const actionTh = document.createElement('th');
+    actionTh.textContent = 'Action';
+    head.appendChild(actionTh);
+
     const columns = Object.keys(rows[0]);
 
     columns.forEach(col => {
@@ -120,6 +125,16 @@ function renderTable(rows) {
 
     rows.forEach(row => {
         const tr = document.createElement('tr');
+
+        // Action Cell with Edit Button
+        const actionTd = document.createElement('td');
+        const editBtn = document.createElement('button');
+        editBtn.className = 'action-btn';
+        editBtn.textContent = '✏️ Edit';
+        editBtn.onclick = () => openEditModal(row);
+        actionTd.appendChild(editBtn);
+        tr.appendChild(actionTd);
+
         columns.forEach(colName => {
             const td = document.createElement('td');
             const val = row[colName];
@@ -139,6 +154,108 @@ function renderTable(rows) {
     document.getElementById('total-label').innerHTML = "Total Records: " + rows.length;
 }
 
+async function openEditModal(record) {
+    // Access the '*ID' key using bracket notation
+    const recordId = record['*ID'];
+
+    if (!recordId) {
+        alert("Error: Record ID not found in row data.");
+        console.error("Missing *ID property:", record);
+        return;
+    }
+
+    // Store the ID in the hidden input
+    document.getElementById('edit-id').value = recordId;
+
+    // Populate the form fields
+    document.getElementById('edit-name').value = record.Name || '';
+    document.getElementById('edit-contact').value = record['Contact Number'] || '';
+    document.getElementById('edit-parent').value = record['Parent Name'] || '';
+    document.getElementById('edit-notes').value = record.Notes || '';
+
+    // Populate and set dropdown options
+    document.getElementById('edit-unit').innerHTML = document.getElementById('unit-filter').innerHTML;
+    document.getElementById('edit-status').innerHTML = document.getElementById('status-filter').innerHTML;
+
+    document.getElementById('edit-unit').value = record.Unit || 'All';
+    document.getElementById('edit-status').value = record.Status || 'All';
+
+    document.getElementById('edit-modal').style.display = 'flex';
+}
+
+async function saveRecord() {
+    const recordId = parseInt(document.getElementById('edit-id').value, 10);
+
+    if (isNaN(recordId)) {
+        alert("Invalid ID value. Update aborted.");
+        return;
+    }
+
+    const selectedUnitName = document.getElementById('edit-unit').value;
+    const selectedStatusName = document.getElementById('edit-status').value;
+
+    let updatedUnitId = null;
+    let updatedStatusId = null;
+
+    // Fetch corresponding unit_id if valid
+    if (selectedUnitName && selectedUnitName !== 'All') {
+        const { data: unitData } = await supabaseClient
+            .from('units')
+            .select('id')
+            .eq('unit_name', selectedUnitName)
+            .maybeSingle();
+
+        if (unitData) updatedUnitId = unitData.id;
+    }
+
+    // Fetch corresponding status_id if valid
+    if (selectedStatusName && selectedStatusName !== 'All') {
+        const { data: statusData } = await supabaseClient
+            .from('statuses')
+            .select('id')
+            .eq('status_name', selectedStatusName)
+            .maybeSingle();
+
+        if (statusData) updatedStatusId = statusData.id;
+    }
+
+    // Build fields to update on the base 'scouts' table
+    const updatedData = {
+        "Name": document.getElementById('edit-name').value,
+        "Contact Number": document.getElementById('edit-contact').value,
+        "Parent Name": document.getElementById('edit-parent').value,
+        "Notes": document.getElementById('edit-notes').value,
+        "Unit": document.getElementById('edit-unit').value,
+        "Status": document.getElementById('edit-status').value,
+
+    };
+
+    if (selectedUnitName !== 'All') updatedData["Unit"] = selectedUnitName;
+    if (selectedStatusName !== 'All') updatedData["Status"] = selectedStatusName;
+    if (updatedUnitId !== null) updatedData["unit_id"] = updatedUnitId;
+    if (updatedStatusId !== null) updatedData["status_id"] = updatedStatusId;
+
+    // Execute update without requiring returned data payload
+    const { error } = await supabaseClient
+        .from('scouts')
+        .update(updatedData)
+        .eq('id', recordId);
+
+    if (error) {
+        alert("Error updating record: " + error.message);
+        console.error("Supabase error:", error);
+        return;
+    }
+
+    closeModal();
+
+    // Refresh the table UI with updated data from v_scouts
+    await applyFilters();
+}
+
+function closeModal() {
+    document.getElementById('edit-modal').style.display = 'none';
+}
 function clearTable() {
     document.getElementById('table-head').innerHTML = '';
     document.getElementById('table-body').innerHTML = '<tr><td colspan="100%">No matching records found.</td></tr>';

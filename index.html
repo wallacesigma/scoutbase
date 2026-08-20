@@ -26,10 +26,53 @@
         <div id="auth-error"></div>
     </div>
 
+    <!-- EDIT RECORD MODAL -->
+    <div id="edit-modal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <h3>Edit Scout Record</h3>
+            <input type="hidden" id="edit-id">
+
+            <div class="field-group">
+                <label for="edit-name">Name:</label>
+                <input type="text" id="edit-name">
+            </div>
+
+            <div class="field-group">
+                <label for="edit-unit">Unit:</label>
+                <select id="edit-unit"></select>
+            </div>
+
+            <div class="field-group">
+                <label for="edit-status">Status:</label>
+                <select id="edit-status"></select>
+            </div>
+
+            <div class="field-group">
+                <label for="edit-contact">Contact Number:</label>
+                <input type="text" id="edit-contact">
+            </div>
+
+            <div class="field-group">
+                <label for="edit-parent">Parent Name:</label>
+                <input type="text" id="edit-parent">
+            </div>
+
+            <div class="field-group">
+                <label for="edit-notes">Notes:</label>
+                <input type="text" id="edit-notes">
+            </div>
+
+            <div class="modal-buttons">
+                <button class="save-btn" onclick="saveRecord()">Save Changes</button>
+                <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
     <!-- MAIN APP CONTENT (Protected) -->
     <div id="app-content">
         <div class="header-scoutbase"></div>
-        
+
         <div class="header-container">
             <img class="header-image" src="SBEmblem.png" alt="ScoutBase">
             <div class="scout-logo">
@@ -43,7 +86,7 @@
 
             <button class="logout-btn" onclick="handleLogout()">Logout</button>
         </div>
-        
+
         <div class="filter-controls">
             <div class="controls">
                 <div class="filter-group">
@@ -59,7 +102,7 @@
                         <option value="All">All Statuses</option>
                     </select>
                 </div>
-                
+
                 <div class="total-box">
                     <label class="total-label" id="total-label"><strong>Total Records: 0</strong></label>
                 </div>
